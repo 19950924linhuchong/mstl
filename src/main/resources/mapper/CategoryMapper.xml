@@ -23,7 +23,7 @@
     delete from mmall_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.com.mmall.model.Category" >
+  <insert id="insert" parameterType="com.mmall.model.Category" >
     insert into mmall_category (id, parent_id, name, 
       status, sort_order, create_time, 
       update_time)
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.com.mmall.model.Category" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.Category" >
     update mmall_category
     <set >
       <if test="parentId != null" >
@@ -104,7 +104,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.com.mmall.model.Category" >
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.Category" >
     update mmall_category
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
@@ -114,4 +114,11 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectCategeoryChildrenByParentId" parameterType="int"  resultMap="BaseResultMap">
+    SELECT  
+    <include refid="Base_Column_List"/>
+    from mmall_category
+    where parent_id=#{parentId}
+  </select>
 </mapper>

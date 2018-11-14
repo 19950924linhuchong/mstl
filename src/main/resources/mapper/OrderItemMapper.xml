@@ -28,7 +28,7 @@
     delete from mmall_order_item
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.com.mmall.model.OrderItem" >
+  <insert id="insert" parameterType="com.mmall.model.OrderItem" >
     insert into mmall_order_item (id, user_id, order_no, 
       product_id, product_name, product_image, 
       current_unit_price, quantity, total_price, 
@@ -38,7 +38,7 @@
       #{currentUnitPrice,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL}, 
       now(), now())
   </insert>
-  <insert id="insertSelective" parameterType="com.com.mmall.model.OrderItem" >
+  <insert id="insertSelective" parameterType="com.mmall.model.OrderItem" >
     insert into mmall_order_item
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -111,7 +111,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.com.mmall.model.OrderItem" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.OrderItem" >
     update mmall_order_item
     <set >
       <if test="userId != null" >
@@ -147,7 +147,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.com.mmall.model.OrderItem" >
+  <update id="updateByPrimaryKey" parameterType="com.mmall.model.OrderItem" >
     update mmall_order_item
     set user_id = #{userId,jdbcType=INTEGER},
       order_no = #{orderNo,jdbcType=BIGINT},
@@ -161,4 +161,13 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getByOrderNoAnduserId" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from mmall_order_item
+    where order_no=#{orderNo}
+    and user_id=#{userId}
+
+  </select>
 </mapper>
